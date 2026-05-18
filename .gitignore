@@ -1,0 +1,39 @@
+# Build artifacts
+build/
+*.o
+*.map
+*.sym
+
+# Generated assets (regenerable via tools/)
+src/font.asm
+src/notes.asm
+src/waves.asm
+
+# Local toolchain
+tools/rgbasm.exe
+tools/rgblink.exe
+tools/rgbfix.exe
+tools/rgbgfx.exe
+tools/*.dll
+tools/rgbds.zip
+
+# Manual preview/debug images
+manual/pdf_*.png
+manual/pdf_hires_*.png
+manual/pdf_v2_*.png
+manual/pdf_gbp_*.png
+manual/pdf_pe_*.png
+
+# Temporary save tests
+*.sav
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
