@@ -237,6 +237,36 @@ Input_SaveMenu::
     ld [MenuDirty], a
 .no_down:
 
+    ; RIGHT: faster tempo (Speed--, higher BPM).  Clamp to Speed>=3.
+    bit 4, b
+    jr z, .no_right
+    ld a, [SongSpeed]
+    cp 4
+    jr c, .no_right           ; already at min (3) → don't go below
+    dec a
+    ld [SongSpeed], a
+    call RecomputeBpm
+    ld a, 1
+    ld [MenuDirty], a
+    xor a
+    ld [MenuFlash], a
+.no_right:
+
+    ; LEFT: slower tempo (Speed++, lower BPM).  Clamp to Speed<=20.
+    bit 5, b
+    jr z, .no_left
+    ld a, [SongSpeed]
+    cp 20
+    jr nc, .no_left           ; already at max → don't go above
+    inc a
+    ld [SongSpeed], a
+    call RecomputeBpm
+    ld a, 1
+    ld [MenuDirty], a
+    xor a
+    ld [MenuFlash], a
+.no_left:
+
     ; A: LOAD selected slot (only if valid)
     bit 0, b
     jr z, .no_a

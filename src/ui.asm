@@ -271,9 +271,12 @@ UI_DrawSaveMenu::
     cp 4
     jr c, .slot_loop
 
-    ; --- Hint rows ---
+    ; --- Tempo + hint rows ---
     ld a, 1
     ldh [rVBK], a
+    ld hl, TILEMAP_BASE + 32*12
+    ld a, 6                    ; palette 6 = black/yellow, makes tempo pop
+    call FillRowAttr_LCD_safe
     ld hl, TILEMAP_BASE + 32*13
     ld a, 7
     call FillRowAttr_LCD_safe
@@ -288,6 +291,14 @@ UI_DrawSaveMenu::
     call FillRowAttr_LCD_safe
     xor a
     ldh [rVBK], a
+
+    ; Row 12 — live tempo "TEMPO: XXX BPM" (digits overwrite the "000" at col 7)
+    ld hl, TILEMAP_BASE + 32*12
+    ld de, StrMenuTempo
+    call UI_PrintZ
+    ld hl, TILEMAP_BASE + 32*12 + 7
+    ld a, [BpmDisplay]
+    call UI_PrintByte3
 
     ld hl, TILEMAP_BASE + 32*13
     ld de, StrMenuFlashLine
@@ -337,10 +348,12 @@ StrLoaded:
     DB ">>> LOADED <<<", 0
 StrMenuFlashLine:
     DB "                    ", 0
+StrMenuTempo:
+    DB "TEMPO: 000 BPM", 0
 StrMenuHelp1:
-    DB "A: LOAD slot", 0
+    DB "A:LOAD  B:SAVE", 0
 StrMenuHelp2:
-    DB "B: SAVE slot", 0
+    DB "<>: change tempo", 0
 StrMenuHelp3:
     DB "SELECT: back", 0
 
