@@ -107,11 +107,14 @@ Order list: `0 → 1 → 0 → 2 → 0 → 3` · Speed `8` (~112 BPM in 2/4 with
 
 ## Building from source
 
+> 📄 **Guida completa in italiano**: [GB_TRACKER_PRO_Guida_Sviluppo.pdf](GB_TRACKER_PRO_Guida_Sviluppo.pdf) — setup passo-passo dell'ambiente di sviluppo su **Windows** e **macOS** (RGBDS v1.0.1, Python, emulatori, troubleshooting).
+
 ### Requirements
 
 - Python 3.8+ (only for the asset generators and the manual)
 - [RGBDS](https://rgbds.gbdev.io/) v1.0.1+ (`rgbasm`, `rgblink`, `rgbfix`)
   - On Windows: drop `rgbasm.exe`, `rgblink.exe`, `rgbfix.exe`, `rgbgfx.exe` and the two DLLs in `tools/`
+  - On macOS/Linux: `brew install rgbds` — `build.py` auto-detects RGBDS from `PATH` when `tools/*.exe` are absent
 
 ### One-command build
 

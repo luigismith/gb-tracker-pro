@@ -20,9 +20,22 @@ SRC = ROOT / 'src'
 INC = ROOT / 'inc'
 BUILD = ROOT / 'build'
 
-RGBASM = TOOLS / 'rgbasm.exe'
-RGBLINK = TOOLS / 'rgblink.exe'
-RGBFIX = TOOLS / 'rgbfix.exe'
+def find_tool(name):
+    """Locate an RGBDS binary: vendored tools/*.exe first (Windows),
+    then the system PATH (macOS/Linux, e.g. `brew install rgbds`)."""
+    exe = TOOLS / f'{name}.exe'
+    if exe.exists():
+        return str(exe)
+    found = shutil.which(name)
+    if found:
+        return found
+    sys.exit(f'! {name} not found: place {name}.exe in tools/ '
+             f'or install RGBDS so that `{name}` is in your PATH')
+
+
+RGBASM = find_tool('rgbasm')
+RGBLINK = find_tool('rgblink')
+RGBFIX = find_tool('rgbfix')
 
 # Source assembly files (order doesn't matter — rgblink resolves)
 SOURCES = [

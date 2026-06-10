@@ -1,0 +1,15 @@
+# Binary files — never apply line-ending conversion
+*.pdf  binary
+*.gbc  binary
+*.sav  binary
+*.fts  binary
+*.png  binary
+*.exe  binary
+*.dll  binary
+*.zip  binary
+
+# Text files — normalize to LF in the repo
+*.py   text eol=lf
+*.asm  text eol=lf
+*.inc  text eol=lf
+*.md   text eol=lf
